@@ -7,22 +7,23 @@
 MEMORY
 {
   FLASH (rx) : ORIGIN = 0x08000000, LENGTH = 1M   /* full device flash (linker only needs origin) */
-  RAM (xrw)  : ORIGIN = 0x20000000, LENGTH = 96K  /* SRAM1: main RAM; keep SRAM2 for special uses */
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 96K  /* SRAM1: main RAM; keep SRAM2 for special uses */
 }
 
 SECTIONS
 {
-    .text :
-    {
-        _start_text = .;
-        KEEP(*(.isr_vector))
-        . = 0x400;
-        KEEP(*(.utils))
-        KEEP(*(.text*))
-        *(.rodata*)
-        . = ALIGN(4);
-        _end_text = .;
-    } > FLASH
+.text :
+{
+    _start_text = ORIGIN(FLASH);        /* optional explicit start marker */
+    KEEP(*(.isr_vector))                /* keep the vector table at FLASH base */
+    /* Reserve the first 0x400 bytes for a vector/bootloader area */
+    . = ORIGIN(FLASH) + 0x400;          /* start placing the rest at flash-base+0x400 */
+    KEEP(*(.utils))
+    KEEP(*(.text*))
+    *(.rodata*)
+    . = ALIGN(4);
+    _end_text = .;
+} > FLASH
 
     _stored_data = .;
 

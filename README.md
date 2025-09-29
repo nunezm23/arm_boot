@@ -23,3 +23,13 @@ Sections:
 * .data: initialized variables (Flash section that then its copy to RAM at runtime)
 * .bss unitialized variables (zero - RAM section)
 * .rodata constants
+
+
+* Memory section at Linker Script
+Here is declarated the physical address regions (with a base ORIGIN and LENGTH) and gives
+each region a small attribute string in parentheses:
+- r: Read (For read-only data or code)
+- x: Write (for .data, .bss, etc)
+- w: Execute (for code / .text if you want to run it from that region)
+
+
