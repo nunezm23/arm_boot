@@ -24,12 +24,24 @@ Sections:
 * .bss unitialized variables (zero - RAM section)
 * .rodata constants
 
+## Some definitions
+- Virtual Memory Address (VMA)
+- Load Memory Address (LMA)
+- Read-only data (rodata)
+- Main Stack Pointer (MSP)
 
-* Memory section at Linker Script
+## Memory section at Linker Script
 Here is declarated the physical address regions (with a base ORIGIN and LENGTH) and gives
 each region a small attribute string in parentheses:
 - r: Read (For read-only data or code)
 - x: Write (for .data, .bss, etc)
 - w: Execute (for code / .text if you want to run it from that region)
+
+## Location counter ( . )
+In a linker script, the location counter is represented by the dot symbol.
+It tells the linker:
+- Where in memory the next piece of code or data should be placed.
+- It automatically increases as sections and symbols are laid out in memory.
+
 
 
